@@ -43,7 +43,7 @@ export default class TextTab extends Component<{}> {
 		//Alert.alert(text)
 			
 			var data1 = text;
-			const url = 'https://www.chanson34.hasura-app.io';
+			const url = 'https://app.boiling91.hasura-app.io/';
 			// The data we are going to send in our request
 			let data = {
 			    value: data1
