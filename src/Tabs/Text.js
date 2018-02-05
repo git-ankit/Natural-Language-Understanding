@@ -5,7 +5,14 @@ import {
 	StyleSheet,
 	Text,
 	View,
-	TextInput
+	TextInput,
+	Button,
+	Alert,
+	FlatList,
+	ScrollView,
+	TouchableOpacity,
+	ListView,
+	ActivityIndicator
 } from 'react-native';
 import { 
 	Container, 	 
@@ -13,20 +20,63 @@ import {
 	Label,
 	Item,
 	Content,
-	Button,
 	Body
 } from 'native-base';
+import Fetch from 'fetch-api';
 
 
 
 export default class TextTab extends Component<{}> {
-	constructor(props) {
-    	super(props);
-    	this.state = {
-      		text: '',
-    	};
-  	}
+	constructor(props){
+	    super(props)
+
+	    this.state = {
+	      value: '',
+	      dataSource: [],
+	      data: '',
+	      loading: false,
+	      
+	    }
+    }
+	feedAPI(text) {
+		//var url = 'https://www.chanson34.hasura-app.io/';
+		//Alert.alert(text)
+			
+			var data1 = text;
+			const url = 'https://www.chanson34.hasura-app.io';
+			// The data we are going to send in our request
+			let data = {
+			    value: data1
+			}
+			// The parameters we are gonna pass to the fetch function
+			let fetchData = { 
+			    method: 'POST', 
+			    body: JSON.stringify(data),
+			    headers: new Headers({
+    				'Content-Type': 'application/json'
+  				})
+			}
+			
+			fetch(url, fetchData).catch(error => console.error('Error:', error,'END OF ERROR'))
+			.then(response => response.json())
+			.then(responseJSON => {
+				//console.warn(responseJSON)
+				
+       			this.setState({
+         		
+         			data : "The response is as below: \n"+JSON.stringify(responseJSON),
+         			loading: true
+         			
+				})
+			}); 
+			//console.warn(this.state.res)
+			
+		//.catch(error => console.error('Error:', error))
+		
+	}
+	
 	render() {
+		
     	return (
     		<Container>
     			<Content>
@@ -39,20 +89,22 @@ export default class TextTab extends Component<{}> {
 	         					multiline = {true}
 	         					numberOfLines = {10}
 	         					placeholder = {'Put text here!'}
-	         					onChangeText={(text) => this.setState({text})}
-	         					value={this.state.text}
+          						onChangeText={(text1) => this.setState({text1})}
 	       					/>
      					</View>
             		</ Item>
             		<Body>
-	            		<Button rounded style = {{backgroundColor : '#661548', width: 100}}>
-	            			<Body>
-	            				<Text style={{fontWeight: 'bold', color:'white'}}>Analyse!</ Text>
-	            			</ Body>
-	            		</ Button>
+	            		<Button
+        						onPress={()=>this.feedAPI(this.state.text1)}
+        						title="Analyse!"
+        						color="#661548"
+      					/>
 	            	</ Body>             		
           		</ Form>
           		</ Content>
+          		
+          		
+          		<View ><Text style={styles.response}>{this.state.data}</Text></View>
     		</ Container>
    		);
   	}
@@ -63,5 +115,9 @@ const styles = StyleSheet.create(
 	textEdit: {
     	width: 340,
     	
-  }
+    },
+    response: {
+    	fontWeight: 'bold',
+    	textDecorationStyle: 'solid',
+    }
 });
