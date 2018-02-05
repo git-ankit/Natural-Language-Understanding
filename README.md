@@ -1,7 +1,7 @@
-# HPDF TwitterClone
+# IBM Watson NLU Android app
 # Steps to get started
 ### 1.Clone it to your repo
-### 2.Open command prompt or any shell inside 'AnkitTask1' folder
+### 2.Open command prompt or any shell inside 'android' folder
 ### 3.For Windows Command Prompt, type: gradlew clean
 	    For Windows PowerShell, type: .\gradlew clean
 ### 4.At successful build, type 'react-native run-android' for android
