@@ -40,7 +40,7 @@ export default class TextTab extends Component<{}> {
     }
 	feedAPI(text) {
 		//var url = 'https://www.chanson34.hasura-app.io/';
-		//Alert.alert(text)
+		
 			
 			var data1 = text;
 			const url = 'https://www.chanson34.hasura-app.io/';// url for node-express
@@ -56,11 +56,11 @@ export default class TextTab extends Component<{}> {
     				'Content-Type': 'application/json'
   				})
 			}
-			
+			// call API and process response or error
 			fetch(url, fetchData).catch(error => console.error('Error:', error,'END OF ERROR'))
 			.then(response => response.json())
 			.then(responseJSON => {
-				//console.warn(responseJSON)
+				
 				
        			this.setState({
          		
@@ -69,15 +69,13 @@ export default class TextTab extends Component<{}> {
          			
 				})
 			}); 
-			//console.warn(this.state.res)
 			
-		//.catch(error => console.error('Error:', error))
 		
 	}
 	
 	render() {
 		
-    	return (
+    	return (// A text-input, button and a resonse from the API.
     		<Container>
     			<Content>
     			<Form>
